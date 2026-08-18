@@ -1,14 +1,16 @@
 package br.com.livrarioapi.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

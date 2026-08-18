@@ -2,8 +2,7 @@ package br.com.livrarioapi.entity;
 
 import br.com.livrarioapi.enums.Genero;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,6 +10,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
