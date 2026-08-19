@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     List<Autor> findByLivrosTitulo(String titulo);
     Optional<Autor> findByNome(String nome);
+    boolean existsByIdAndLivrosIsNotEmpty(Long id);
 }
