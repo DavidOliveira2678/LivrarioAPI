@@ -18,19 +18,31 @@ public class BuscarLivrosService {
     }
 
     public List<LivroResponseDTO> buscarTodos(){
-        return livroRepository.findAll().stream().map(this::mapearLivro).toList();
+        return livroRepository.findAll()
+                .stream()
+                .map(this::mapearLivro)
+                .toList();
     }
 
     public List<LivroResponseDTO> buscarPorAutor(String nomeAutor){
-        return livroRepository.findByAutoresNome(nomeAutor).stream().map(this::mapearLivro).toList();
+        return livroRepository.findByAutoresNome(nomeAutor)
+                .stream()
+                .map(this::mapearLivro)
+                .toList();
     }
 
     public List<LivroResponseDTO> buscarPorTitulo(String titulo){
-        return livroRepository.findByTitulo(titulo).stream().map(this::mapearLivro).toList();
+        return livroRepository.findByTitulo(titulo)
+                .stream()
+                .map(this::mapearLivro)
+                .toList();
     }
 
-    public LivroResponseDTO buscarPorIsbn(String isbn){
-        return livroRepository.findByIsbn(isbn).map(this::mapearLivro).orElseThrow(() -> new BuscarLivroException("Livro de ISBN " + isbn + " não encontrado"));
+    public List<LivroResponseDTO> buscarPorIsbn(String isbn){
+        return livroRepository.findByIsbn(isbn)
+                .map(this::mapearLivro)
+                .map(List::of)
+                .orElseThrow(() -> new BuscarLivroException("Livro de ISBN " + isbn + " não encontrado"));
     }
 
     private LivroResponseDTO mapearLivro(Livro livro){
