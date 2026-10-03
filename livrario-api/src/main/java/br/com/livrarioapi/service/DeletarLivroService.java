@@ -7,6 +7,7 @@ import br.com.livrarioapi.entity.Livro;
 import br.com.livrarioapi.exception.DeletarLivroException;
 import br.com.livrarioapi.repository.AutorRepository;
 import br.com.livrarioapi.repository.LivroRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +23,9 @@ public class DeletarLivroService {
         this.autorRepository = autorRepository;
     }
 
-    public boolean excluirLivro(LivroRequestDTO livro){
-        Optional<Livro> livroOpt = livroRepository.findByIsbn(livro.isbn());
+    @Transactional
+    public boolean excluirLivro(String isbn){
+        Optional<Livro> livroOpt = livroRepository.findByIsbn(isbn);
         if(livroOpt.isEmpty()) throw new DeletarLivroException("Livro inexistente");
 
         Livro livroRegistrado = livroOpt.get();

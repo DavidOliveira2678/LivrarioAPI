@@ -4,6 +4,7 @@ import br.com.livrarioapi.dto.LivroRequestDTO;
 import br.com.livrarioapi.dto.LivroResponseDTO;
 import br.com.livrarioapi.service.BuscarLivrosService;
 import br.com.livrarioapi.service.CadastrarLivroService;
+import br.com.livrarioapi.service.DeletarLivroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,12 @@ import java.util.List;
 public class LivroController {
     private final CadastrarLivroService cadastrarLivroService;
     private final BuscarLivrosService buscarLivrosService;
+    private final DeletarLivroService deletarLivroService;
 
-    public LivroController(CadastrarLivroService cadastrarLivroService,
-                           BuscarLivrosService buscarLivrosService){
-
+    public LivroController(CadastrarLivroService cadastrarLivroService, BuscarLivrosService buscarLivrosService, DeletarLivroService deletarLivroService){
         this.cadastrarLivroService = cadastrarLivroService;
         this.buscarLivrosService = buscarLivrosService;
+        this.deletarLivroService = deletarLivroService;
     }
 
     @PostMapping("/cadastro")
@@ -42,4 +43,11 @@ public class LivroController {
 
         return ResponseEntity.ok().body(buscarLivrosService.buscarTodos());
     }
+
+    @DeleteMapping(value = "/deletar/{isbn}")
+    public ResponseEntity<Void> deletarLivro(@PathVariable String isbn){
+        this.deletarLivroService.excluirLivro(isbn);
+        return ResponseEntity.noContent().build();
+    }
+
 }
